@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title></title>
 
   <!-- Daisy & Tailwind -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.4/dist/full.css" rel="stylesheet" type="text/css" />
@@ -13,18 +13,18 @@
 <body class="bg-gray-50">
 
   <!--navbar-->
-  <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content fixed top-0 w-screen z-10">
+  <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content fixed top-0 w-screen z-10 py-0">
     <div class="container mx-auto">
       <div class="flex-1 px-2 mx-2">
         <span class="text-lg font-bold text-xl">
           LKS Store
         </span>
       </div>
-      <ul class="flex">
-        <li class="mr-5">
+      <ul class="flex ml-auto">
+        <li class="mr-3">
           <a href="{{route('login')}}" class="text-md">Login</a>
         </li>
-        <li>
+        <li class="mr-10">
           <a href="{{route('register')}}" class="text-md">Register</a>
         </li>
       </ul>
@@ -53,61 +53,49 @@
   <div id="product" class="container mx-auto mt-10 mb-20">
     <h3 class="text-xl uppercase font-bold tracking-wider text-center">Produk Kami</h3>
     <div class="mt-10 grid sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 mx-5 gap-6">
-      <div class="card bordered shadow-sm">
-        <figure>
-          <img src="https://picsum.photos/id/1005/400/250">
-        </figure>
-        <div class="card-body text-center indicator bg-white w-auto">
-          <div class="indicator-item badge bg-blue-500 border-none mr-10 p-2 px-5">
-            BARU
-          </div>
-          <h2 class="card-title uppercase">
-            Product Name
-          </h2>
-          <h3 class="text-xl font-bold tracking-wider">
-            Rp. 32.000
-          </h3>
-          <div class="justify-center card-actions">
-            <a href="#description" class="btn bg-blue-500 border-blue-600 hover:bg-blue-600 w-100 py-0 px-10">Lihat info</a>
-            <div data-tip="Beli" class="tooltip">
-              <button class="btn bg-green-500 hover:bg-green-600 border-green-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </button>
+      @foreach ($products as $product)
+        <div class="card bordered shadow-sm">
+          <figure>
+            <img src="{{$product->photo}}">
+          </figure>
+          <div class="card-body text-center indicator bg-white w-auto">
+            @if($product->created_at->format('d:m:Y') == now()->format('d:m:Y'))
+            <div class="indicator-item mr-20">
+              <span class="badge bg-blue-500 border-none p-2 px-5">
+                BARU
+              </span>
+              @else
+              <div class="indicator-item mr-10">
+              @endif
+              <span class="badge bg-green-500 border-none p-2 px-5 mr-3">
+                {{$product->category->name}}
+              </span>
+            </div>
+            <h2 class="card-title uppercase">
+             {{$product->name}}
+            </h2>
+            <h3 class="text-xl font-bold tracking-wider">
+              Rp. {{$product->price}}
+            </h3>
+            <div class="justify-center card-actions">
+              <a href="#description" class="btn bg-blue-500 border-blue-600 hover:bg-blue-600 w-100 py-0 px-10">Lihat info</a>
+              <div data-tip="Beli" class="tooltip">
+                <button class="btn bg-green-500 hover:bg-green-600 border-green-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card bordered shadow-sm">
-        <figure>
-          <img src="https://picsum.photos/id/1005/400/250">
-        </figure>
-        <div class="card-body text-center indicator bg-white w-auto">
-          <div class="indicator-item badge bg-blue-500 border-none mr-10 p-2 px-5">
-            BARU
-          </div>
-          <h2 class="card-title uppercase">
-            Product Name
-          </h2>
-          <h3 class="text-xl font-bold tracking-wider">
-            Rp. 32.000
-          </h3>
-          <div class="justify-center card-actions">
-            <a href="#description" class="btn bg-blue-500 border-blue-600 hover:bg-blue-600 w-100 py-0 px-10">Lihat info</a>
-            <div data-tip="Beli" class="tooltip">
-              <button class="btn bg-green-500 hover:bg-green-600 border-green-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      @endforeach
+    </div>
+    <div class="w-96 mb-5 ml-auto pr-10 mt-10">
+      {{$products->links()}}
     </div>
   </div>
-
+  
   <div id="description" class="modal">
     <div class="modal-box">
       <p>
