@@ -20,14 +20,37 @@
           LKS Store
         </span>
       </div>
-      <ul class="flex ml-auto">
+      @guest
+      <ul class="flex ml-auto mr-7">
         <li class="mr-3">
           <a href="{{route('login')}}" class="text-md">Login</a>
         </li>
-        <li class="mr-10">
+        <li>
           <a href="{{route('register')}}" class="text-md">Register</a>
         </li>
       </ul>
+      @else
+        <div class="dropdown dropdown-end mr-10">
+          <div tabindex="0" class="uppercase cursor-pointer">{{auth()->user()->name}}</div> 
+          <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 text-black">
+            @if(auth()->user()->hasRole('admin'))
+            <li>
+              <a href="{{route('dashboard')}}">Dashboard</a>
+            </li>
+            @endif
+            <li class="py-2 px-6 rounded-md hover:bg-gray-200">
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </a>
+              </form>
+            </li>
+          </ul>
+        </div>   
+      @endguest
     </div>
   </div>
 
