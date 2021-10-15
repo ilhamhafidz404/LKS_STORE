@@ -55,89 +55,50 @@
   </div>
 
   <!--hero-->
-  <div class="grid sm:grid-cols-2 grid-cols-1 h-96">
+  <div class="grid sm:grid-cols-2 grid-cols-1 h-screen">
     <div class="bg-blue-500 flex items-center justify-center pt-10">
       <div class="text-white w-2/3">
-        <h2 class="text-2xl font-bold tracking-widest">LKS Store</h2>
+        <h2 class="text-2xl font-bold tracking-widest mt-10">{{$product->name}}</h2>
         <p class="font-medium text-sm">
-          Beli Smartphone Kekinian dengan Harga Hemat
+            {{$product->category->name}}
         </p>
+        <h4 class="font-medium text-sm text-xl font-bold mt-2">
+            Rp. {{$product->price}}
+        </h4>
         <p class="mt-5 text-gray-200">
-          Ayo belanja sekarang dan dapatkan diskon tahun baru sebanyak 90% yang hanya berlaku sampai tanggal 3 Januari 2021. Ayo buruan!!
+          {{$product->description}}
         </p>
-      </div>
-    </div>
-    <div class="bg-cover bg-center hidden sm:block" style="background-image: url(https://images.unsplash.com/photo-1611956565880-10e29a417648?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1780&q=80)">
-    </div>
-  </div>
-
-
-  <!--Product-->
-  <div id="product" class="container mx-auto mt-10 mb-20">
-    <h3 class="text-xl uppercase font-bold tracking-wider text-center">Produk Kami</h3>
-    <div class="mt-10 grid sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 mx-5 gap-6">
-      @foreach ($products as $product)
-        <div class="card bordered shadow-sm">
-          <figure>
-            <img src="{{$product->photo}}">
-          </figure>
-          <div class="card-body text-center indicator bg-white w-auto">
-            @if($product->created_at->format('d:m:Y') == now()->format('d:m:Y'))
-            <div class="indicator-item mr-20">
-              <span class="badge bg-blue-500 border-none p-2 px-5">
-                BARU
-              </span>
-              @else
-              <div class="indicator-item mr-10">
-              @endif
-              <span class="badge bg-green-500 border-none p-2 px-5 mr-3">
-                {{$product->category->name}}
-              </span>
-            </div>
-            <h2 class="card-title uppercase">
-             {{$product->name}}
-            </h2>
-            <h3 class="text-xl font-bold tracking-wider">
-              Rp. {{$product->price}}
-            </h3>
-            <div class="justify-center card-actions">
-              <a href="#description" class="btn bg-blue-500 border-blue-600 hover:bg-blue-600 w-100 py-0 px-10">Lihat info</a>
-
-              {{-- Tombol Keranjang --}}
-              <div data-tip="Beli" class="tooltip">
-                <a href="{{route('show.product', $product->slug)}}" class="btn bg-green-500 hover:bg-green-600 border-green-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="mt-10 mb-10">
+            <a href="{{route('welcome')}}" class="btn bg-red-500 border-none hover:bg-red-600">kembali</a>
+            <a href="#buy" class="btn bg-green-500 border-none px-20 hover:bg-green-600">Beli</a>
         </div>
-      @endforeach
-    </div>
-    <div class="w-96 mb-5 ml-auto pr-10 mt-10">
-      {{$products->links()}}
-    </div>
-  </div>
-  
-  <div id="description" class="modal">
-    <div class="modal-box">
-      <p>
-        Enim dolorem dolorum omnis atque necessitatibus. Consequatur aut adipisci qui iusto illo eaque. Consequatur repudiandae et. Nulla ea quasi eligendi. Saepe velit autem minima.
-      </p>
-      <div class="modal-action">
-        <a href="" class="btn btn-primary">Accept</a>
-        <a href="" class="btn">Close</a>
       </div>
     </div>
+    <div class="bg-cover bg-center hidden sm:block" style="background-image: url({{$product->photo}})">
+    </div>
   </div>
 
-
-
+  <div id="buy" class="modal">
+    <div class="modal-box">
+      <form action="{{route('transaction.product')}}" method="POST">
+        @csrf
+        <input type="hidden" name="product" value="{{$product->id}}">
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Jumlah</span>
+            </label> 
+            <input type="number" placeholder="... pcs" class="input input-bordered" name="total">
+        </div>
+        <div class="modal-action">
+            <button type="submit" class="btn btn-success">Beli</button>
+            <a href="" class="btn btn-error">Close</a>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!--footer-->
-  <footer class="p-10 footer bg-blue-500 text-base-content footer-center text-white">
+  <footer class="p-10 footer bg-gray-700 text-base-content footer-center text-white">
     <div class="grid grid-flow-col gap-4">
       <a class="link link-hover">About us</a>
       <a class="link link-hover">Contact</a>

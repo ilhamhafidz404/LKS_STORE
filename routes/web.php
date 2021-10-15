@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
 
+    Route::get('/product/{product:slug}', ProductController::class)->name('show.product');
+    Route::post('/transaction', TransactionController::class)->name('transaction.product');
+});
 require __DIR__.'/auth.php';

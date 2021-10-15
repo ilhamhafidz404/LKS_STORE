@@ -24,6 +24,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(rand(1,2)),
+            'slug' => Str::slug($this->faker->sentence(rand(1,2))),
             'category_id'=> rand(1,3),
             'description' => $this->faker->paragraph(rand(2,3)),
             'price' => 10000000,
