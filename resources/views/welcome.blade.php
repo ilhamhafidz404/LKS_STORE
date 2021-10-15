@@ -52,7 +52,7 @@
   <!--Product-->
   <div id="product" class="container mx-auto mt-10 mb-20">
     <h3 class="text-xl uppercase font-bold tracking-wider text-center">Produk Kami</h3>
-    <div class="mt-10 grid sm:grid-cols-2 grid-cols-1 mx-5 gap-6">
+    <div class="mt-10 grid sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 mx-5 gap-6">
       <div class="card bordered shadow-sm">
         <figure>
           <img src="https://picsum.photos/id/1005/400/250">
